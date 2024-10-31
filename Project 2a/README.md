@@ -1,5 +1,5 @@
 # Movie Information App
-Minun tekemä :)
+Made by David Porras
 
 ## Demo
 Käy katsomassa sivu Netlifystä!: [https://dazzling-gumdrop-7be313.netlify.app](https://dazzling-gumdrop-7be313.netlify.app)
