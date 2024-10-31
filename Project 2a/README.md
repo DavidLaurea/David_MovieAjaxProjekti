@@ -2,7 +2,7 @@
 Minun tekemä :)
 
 ## Demo
-Käy katsomassa sivu Netlifystä!: [https://dazzling-gumdrop-7be313.netlify.app](https://your-netlify-url.netlify.app](https://dazzling-gumdrop-7be313.netlify.app)
+Käy katsomassa sivu Netlifystä!: [https://dazzling-gumdrop-7be313.netlify.app](https://dazzling-gumdrop-7be313.netlify.app)
 
 Tämä projekti on yksinkertainen elokuvatietosovellus, joka käyttää Finnkino- ja OMDB-sovellusliittymiä elokuvan yksityiskohtien näyttämiseen valitun teatteri- tai elokuvahaun perusteella.
 
