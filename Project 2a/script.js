@@ -1,12 +1,13 @@
-// On page load, fetch theaters and add event listeners
 document.addEventListener("DOMContentLoaded", function() {
     fetchTheaters();
 
-    // Event listener to fetch movies when a theater is selected
+    // Event listener for theater selection
     document.getElementById("theaterSelect").addEventListener("change", fetchMoviesByTheater);
+
+    // Event listener for the search button
+    document.getElementById("searchButton").addEventListener("click", searchMovies);
 });
 
-// Fetch theater information from Finnkino API
 function fetchTheaters() {
     let xhr = new XMLHttpRequest();
     xhr.open("GET", "https://www.finnkino.fi/xml/TheatreAreas/");
@@ -17,7 +18,6 @@ function fetchTheaters() {
             let theaters = xml.getElementsByTagName("TheatreArea");
             let theaterSelect = document.getElementById("theaterSelect");
 
-            // Populate theater dropdown
             for (let i = 0; i < theaters.length; i++) {
                 let option = document.createElement("option");
                 option.value = theaters[i].getElementsByTagName("ID")[0].textContent;
@@ -29,7 +29,6 @@ function fetchTheaters() {
     xhr.send();
 }
 
-// Fetch movie schedule based on selected theater
 function fetchMoviesByTheater() {
     let theaterID = document.getElementById("theaterSelect").value;
     if (!theaterID) return;
@@ -47,18 +46,22 @@ function fetchMoviesByTheater() {
     xhr.send();
 }
 
-// Display movies from Finnkino schedule
-function displayMovies(shows) {
+function displayMovies(shows, filter = "") {
     let movieInfoDiv = document.getElementById("movieInfo");
     movieInfoDiv.innerHTML = ""; // Clear previous movies
 
     for (let i = 0; i < shows.length; i++) {
         let movieTitle = shows[i].getElementsByTagName("Title")[0].textContent;
+
+        // Filter movies if a search term is provided
+        if (filter && !movieTitle.toLowerCase().includes(filter.toLowerCase())) {
+            continue;
+        }
+
         let startTime = shows[i].getElementsByTagName("dttmShowStart")[0].textContent;
         let imageUrl = shows[i].getElementsByTagName("EventSmallImagePortrait")[0].textContent;
         let genre = shows[i].getElementsByTagName("Genres")[0]?.textContent || "N/A";
 
-        // Create movie card element
         let movieCard = document.createElement("div");
         movieCard.className = "movie-card";
 
@@ -70,4 +73,24 @@ function displayMovies(shows) {
         `;
         movieInfoDiv.appendChild(movieCard);
     }
+}
+
+// Search function to filter movies by title within the theater's schedule
+function searchMovies() {
+    let filter = document.getElementById("movieSearch").value.trim();
+    let theaterID = document.getElementById("theaterSelect").value;
+    if (!theaterID) return;
+
+    // Fetch movies for the selected theater and apply filter
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", `https://www.finnkino.fi/xml/Schedule/?area=${theaterID}`);
+    xhr.onreadystatechange = function() {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+            let parser = new DOMParser();
+            let xml = parser.parseFromString(xhr.responseText, "text/xml");
+            let shows = xml.getElementsByTagName("Show");
+            displayMovies(shows, filter);
+        }
+    };
+    xhr.send();
 }
