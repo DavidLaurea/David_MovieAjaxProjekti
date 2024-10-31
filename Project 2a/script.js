@@ -70,7 +70,7 @@ function fetchMovieInfo() {
     if (!movieTitle) return;
 
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `https://www.omdbapi.com/?t=${movieTitle}&apikey=YOUR_API_KEY`);
+    xhr.open("GET", `https://www.omdbapi.com/?t=${movieTitle});
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let movie = JSON.parse(xhr.responseText);
