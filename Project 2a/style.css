@@ -1,0 +1,34 @@
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    background-color:#494949;
+}
+
+h1 {
+    color: #0f0f0f;
+}
+
+#theaterSelect, #movieSearch, #searchButton {
+    margin: 10px;
+}
+
+#movieInfo {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.movie-card {
+    width: 200px;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 2px 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.movie-card img {
+    width: 100%;
+    border-radius: 5px;
+}
