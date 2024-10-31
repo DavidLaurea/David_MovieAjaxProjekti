@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
 function fetchTheaters() {
     // Ajax kutsuu Finnkino API:lle saadakseen teatteritietoja
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", "http://www.finnkino.fi/xml/TheatreAreas/");
+    xhr.open("GET", "https://www.finnkino.fi/xml/TheatreAreas/");
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let parser = new DOMParser();
@@ -32,7 +32,7 @@ function fetchMoviesByTheater() {
     let theaterID = document.getElementById("theaterSelect").value;
     if (!theaterID) return;
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://www.finnkino.fi/xml/Schedule/?area=${theaterID}`);
+    xhr.open("GET", `https://www.finnkino.fi/xml/Schedule/?area=${theaterID}`);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let parser = new DOMParser();
@@ -70,7 +70,7 @@ function fetchMovieInfo() {
     if (!movieTitle) return;
 
     let xhr = new XMLHttpRequest();
-    xhr.open("GET", `http://www.omdbapi.com/?t=${movieTitle}&apikey=YOUR_API_KEY`);
+    xhr.open("GET", `https://www.omdbapi.com/?t=${movieTitle}&apikey=YOUR_API_KEY`);
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
             let movie = JSON.parse(xhr.responseText);
